@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bé Học Tiếng Anh - Vui Vẻ & Dễ Dàng</title>
+  <!-- Google Fonts for Kids-friendly interface -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #4e84e7;
+      --primary-light: #e8effe;
+      --secondary: #ff9f43;
+      --success: #2ed573;
+      --danger: #ff4757;
+      --background: #f1f8ff;
+      --text: #2f3542;
+      --font-family: 'Fredoka', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(#4e84e722 2px, transparent 2px), 
+        radial-gradient(#ff9f4322 2px, transparent 2px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+    }
+
+    header {
+      background: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .header-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      animation: bounce 2s infinite;
+    }
+
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      background: #f1f2f6;
+      border: none;
+      outline: none;
+      padding: 10px 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-btn:hover {
+      background: #e4e7eb;
+      transform: translateY(-2px);
+    }
+
+    .nav-btn.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(78, 132, 231, 0.4);
+    }
+
+    main {
+      flex: 1;
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 25px 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lesson-selector {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .lesson-tab {
+      background: white;
+      border: 3px solid #e4e7eb;
+      padding: 8px 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .lesson-tab.active {
+      border-color: var(--secondary);
+      background: #fffaf0;
+      color: var(--secondary);
+      transform: scale(1.05);
+    }
+
+    /* VIEW SCREENS */
+    .screen {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    /* 1. LEARN SCREEN */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      justify-content: center;
+    }
+
+    .word-card {
+      background: white;
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 4px solid transparent;
+      position: relative;
+    }
+
+    .word-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      border-color: var(--primary-light);
+    }
+
+    .word-card:active {
+      transform: scale(0.95);
+    }
+
+    .image-container {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fafafa;
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      border: 1px solid #f0f0f0;
+    }
+
+    .image-container img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      transition: transform 0.3s;
+    }
+
+    .word-card:hover .image-container img {
+      transform: scale(1.08);
+    }
+
+    .card-info {
+      text-align: center;
+      width: 100%;
+    }
+
+    .english-word {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 5px;
+      text-transform: lowercase;
+      letter-spacing: 0.5px;
+    }
+
+    .vietnamese-word {
+      font-size: 1.1rem;
+      color: #747d8c;
+      font-weight: 500;
+    }
+
+    .speaker-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      background: var(--secondary);
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 159, 67, 0.4);
+      transition: all 0.2s;
+    }
+
+    .speaker-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .speaker-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
+    }
+
+    /* Speak Wave animation */
+    .speaking {
+      animation: pulse-card 0.5s infinite alternate;
+      border-color: var(--secondary) !important;
+    }
+
+    /* 2. GAME: LISTEN & CHOOSE */
+    .game-box {
+      background: white;
+      border-radius: 32px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 12px;
+      background: #f1f2f6;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--success);
+      width: 0%;
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .game-title {
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .sound-prompt-btn {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #3b71db);
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(78, 132, 231, 0.4);
+      margin-bottom: 35px;
+      transition: all 0.3s;
+      animation: radial-pulse 2s infinite;
+    }
+
+    .sound-prompt-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .sound-prompt-btn svg {
+      width: 45px;
+      height: 45px;
+      fill: white;
+    }
+
+    .choices-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .choice-card {
+      background: white;
+      border: 4px solid #f1f2f6;
+      border-radius: 24px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .choice-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+    }
+
+    .choice-card img {
+      max-height: 140px;
+      max-width: 90%;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .choice-card.correct {
+      border-color: var(--success) !important;
+      background: #e8fbf0;
+      animation: success-bounce 0.5s ease forwards;
+    }
+
+    .choice-card.wrong {
+      border-color: var(--danger) !important;
+      background: #ffebeb;
+      animation: shake 0.5s ease forwards;
+    }
+
+    /* 3. GAME: SPELLING */
+    .spelling-image {
+      max-height: 180px;
+      object-fit: contain;
+      margin: 0 auto 20px;
+      display: block;
+      border: 3px solid #f1f2f6;
+      border-radius: 20px;
+      padding: 10px;
+    }
+
+    .slots-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 35px;
+      flex-wrap: wrap;
+      min-height: 60px;
+    }
+
+    .letter-slot {
+      width: 50px;
+      height: 60px;
+      border-bottom: 5px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .letter-slot.filled {
+      border-bottom-color: var(--success);
+      color: var(--success);
+      animation: popIn 0.2s ease forwards;
+    }
+
+    .letters-pool {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .letter-tile {
+      width: 55px;
+      height: 55px;
+      background: white;
+      border: 3px solid #e4e7eb;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .letter-tile:hover {
+      border-color: var(--secondary);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+
+    .letter-tile:active {
+      transform: scale(0.9);
+    }
+
+    .letter-tile.used {
+      opacity: 0.2;
+      pointer-events: none;
+      transform: scale(0.8);
+    }
+
+    .spelling-controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .btn-secondary {
+      background: #f1f2f6;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #e4e7eb;
+    }
+
+    .btn-primary {
+      background: var(--secondary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 159, 67, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 159, 67, 0.5);
+    }
+
+    /* 4. SUCCESS SCREEN */
+    .success-box {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .success-emoji {
+      font-size: 5rem;
+      animation: jump 1s ease infinite alternate;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .success-box h2 {
+      font-size: 2.5rem;
+      color: var(--success);
+      margin-bottom: 15px;
+    }
+
+    .success-box p {
+      font-size: 1.2rem;
+      color: #747d8c;
+      margin-bottom: 30px;
+    }
+
+    /* CONFETTI CANVAS */
+    #confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      display: none;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes pulse-card {
+      0% { box-shadow: 0 8px 24px rgba(255, 159, 67, 0.2); transform: scale(1); }
+      100% { box-shadow: 0 8px 30px rgba(255, 159, 67, 0.5); transform: scale(1.02); }
+    }
+
+    @keyframes radial-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(78, 132, 231, 0.4); }
+      70% { box-shadow: 0 0 0 20px rgba(78, 132, 231, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(78, 132, 231, 0); }
+    }
+
+    @keyframes success-bounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes jump {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-20px) scale(1.05); }
+    }
+
+    /* CARD MATCHING GAME (MEMORY) */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      max-width: 600px;
+      margin: 0 auto;
+      perspective: 1000px;
+    }
+
+    .memory-card {
+      aspect-ratio: 1;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+
+    .memory-card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .memory-card.matched {
+      transform: rotateY(180deg);
+      pointer-events: none;
+      opacity: 0.8;
+      animation: matched-pulse 0.5s ease-out;
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      border: 3px solid white;
+    }
+
+    .card-face.front {
+      background: linear-gradient(135deg, var(--primary), #6c9cf2);
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .card-face.back {
+      background: white;
+      transform: rotateY(180deg);
+      padding: 10px;
+      flex-direction: column;
+      border-color: var(--primary-light);
+    }
+
+    .card-face.back img {
+      max-width: 85%;
+      max-height: 85%;
+      object-fit: contain;
+    }
+
+    .card-face.back .card-word-text {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+      text-transform: uppercase;
+      word-break: break-word;
+    }
+
+    @keyframes matched-pulse {
+      0% { transform: rotateY(180deg) scale(1); }
+      50% { transform: rotateY(180deg) scale(1.08); box-shadow: 0 0 20px var(--success); }
+      100% { transform: rotateY(180deg) scale(1); }
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 600px) {
+      .header-container {
+        flex-direction: column;
+      }
+      .choices-grid {
+        grid-template-columns: 1fr;
+      }
+      .english-word {
+        font-size: 1.8rem;
+      }
+      .letter-slot {
+        width: 35px;
+        height: 45px;
+        font-size: 1.6rem;
+      }
+      .letter-tile {
+        width: 45px;
+        height: 45px;
+        font-size: 1.4rem;
+      }
+      .memory-grid {
+
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+      .card-face.front {
+        font-size: 1.5rem;
+      }
+      .card-face.back .card-word-text {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="logo" onclick="switchScreen('learn')">
+        <img src="tiger.png" alt="Tiger Logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><text y=\'.9em\' font-size=\'90\'>🐯</text></svg>'">
+        <h1>Tiếng Anh Cho Bé</h1>
+      </div>
+      <nav>
+        <button class="nav-btn active" id="nav-learn" onclick="switchScreen('learn')">
+          📖 Học Từ Mới
+        </button>
+        <button class="nav-btn" id="nav-quiz" onclick="startQuizGame()">
+          🎮 Chọn Hình
+        </button>
+        <button class="nav-btn" id="nav-spelling" onclick="startSpellingGame()">
+          ✏️ Ghép Chữ
+        </button>
+        <button class="nav-btn" id="nav-tracing" onclick="switchScreen('tracing')">
+          ✍️ Tập Viết
+        </button>
+        <button class="nav-btn" id="nav-memory" onclick="startMemoryGame()">
+          🎴 Lật Thẻ
+        </button>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 1. LEARN SCREEN -->
+    <section id="screen-learn" class="screen active">
+      <div class="cards-grid" id="learn-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- 2. LISTEN & CHOOSE SCREEN -->
+    <section id="screen-quiz" class="screen">
+      <div class="game-box">
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="quiz-progress"></div>
+        </div>
+        <h3 class="game-title">Nghe phát âm và chọn hình đúng nhé!</h3>
+        
+        <button class="sound-prompt-btn" onclick="playCurrentQuizSound()">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-4H7V9h4v7zm5-4h-2v4h-2V9h4v3z"/>
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+          </svg>
+        </button>
+
+        <div class="choices-grid" id="quiz-choices">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SPELLING GAME SCREEN -->
+    <section id="screen-spelling" class="screen">
+      <div class="game-box">
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="spelling-progress"></div>
+        </div>
+        <h3 class="game-title">Ghép các chữ cái để tạo thành từ đúng:</h3>
+        
+        <img id="spelling-word-img" class="spelling-image" src="" alt="Spelling Hint">
+
+        <div class="slots-container" id="spelling-slots">
+          <!-- Letter slots will appear here -->
+        </div>
+
+        <div class="letters-pool" id="spelling-pool">
+          <!-- Letter tiles will appear here -->
+        </div>
+
+        <div class="spelling-controls">
+          <button class="btn btn-secondary" onclick="resetCurrentSpellingWord()">✕ Xóa Hết</button>
+          <button class="btn btn-primary" onclick="speakCurrentSpellingWord()">🔊 Nghe Lại</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. TRACING LETTER SCREEN -->
+    <section id="screen-tracing" class="screen">
+      <div class="game-box" style="max-width: 500px;">
+        <h3 class="game-title">Bé tập viết chữ cái nhé!</h3>
+        
+        <!-- Letter Selector Row -->
+        <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;">
+          <button class="lesson-tab active" style="padding: 6px 14px; font-size: 1.2rem; min-width: 45px;" onclick="selectTracingLetter('T', this)">T</button>
+          <button class="lesson-tab" style="padding: 6px 14px; font-size: 1.2rem; min-width: 45px;" onclick="selectTracingLetter('t', this)">t</button>
+          <button class="lesson-tab" style="padding: 6px 14px; font-size: 1.2rem; min-width: 45px;" onclick="selectTracingLetter('U', this)">U</button>
+          <button class="lesson-tab" style="padding: 6px 14px; font-size: 1.2rem; min-width: 45px;" onclick="selectTracingLetter('u', this)">u</button>
+          <button class="lesson-tab" style="padding: 6px 14px; font-size: 1.2rem; min-width: 45px;" onclick="selectTracingLetter('V', this)">V</button>
+          <button class="lesson-tab" style="padding: 6px 14px; font-size: 1.2rem; min-width: 45px;" onclick="selectTracingLetter('v', this)">v</button>
+        </div>
+
+        <!-- Tracing Canvas Area -->
+        <div style="position: relative; display: inline-block; background: white; border: 4px solid #4e84e7; border-radius: 24px; padding: 10px; margin-bottom: 20px; touch-action: none; box-shadow: 0 8px 20px rgba(0,0,0,0.05);">
+          <canvas id="tracing-canvas" width="360" height="360" style="display: block; background: #fff; border-radius: 14px; cursor: crosshair; touch-action: none;"></canvas>
+        </div>
+
+        <!-- Controls -->
+        <div class="spelling-controls">
+          <button class="btn btn-secondary" onclick="clearTracingCanvas()">✕ Viết Lại</button>
+          <button class="btn btn-primary" onclick="speakTracingLetter()">🔊 Nghe Đọc</button>
+          <button class="btn btn-primary" style="background: var(--success); box-shadow: 0 4px 12px rgba(46, 213, 115, 0.4);" onclick="completeTracing()">✨ Hoàn Thành</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. REWARD/SUCCESS SCREEN -->
+    <section id="screen-success" class="screen">
+      <div class="game-box success-box">
+        <span class="success-emoji">🏆</span>
+        <h2 id="success-title">Quá Xuất Sắc!</h2>
+        <p id="success-message">Bé đã hoàn thành bài học một cách tuyệt vời!</p>
+        <button class="btn btn-primary" style="background: var(--success); box-shadow: 0 4px 12px rgba(46, 213, 115, 0.4);" onclick="restartGame()">
+          🎮 Chơi Lại Từ Đầu
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <canvas id="confetti"></canvas>
+
+  <script>
+    // VOCABULARY DATA
+    // We map 'turtle' to 'turtule.png' which is the filename in the workspace.
+    const allWords = [
+      { id: 'tiger', word: 'tiger', translation: 'Con hổ 🐯', img: 'tiger.png' },
+      { id: 'turtle', word: 'turtle', translation: 'Con rùa 🐢', img: 'turtule.png' },
+      { id: 'tree', word: 'tree', translation: 'Cái cây 🌳', img: 'tree.png' },
+      { id: 'umbrella', word: 'umbrella', translation: 'Cái ô / dù ⛱️', img: 'umbrella.png' },
+      { id: 'uncle', word: 'uncle', translation: 'Chú / Bác 👨', img: 'uncle.png' },
+      { id: 'van', word: 'van', translation: 'Xe tải nhỏ 🚐', img: 'van.png' },
+      { id: 'violet', word: 'violet', translation: 'Màu tím / Hoa violet 🌸', img: 'violet.png' },
+      { id: 'visit', word: 'visit', translation: 'Đi thăm / Gặp gỡ 🤝', img: 'visit.png' }
+    ];
+
+    let currentWords = [...allWords];
+    let currentScreen = 'learn';
+
+    // Game states
+    let quizIndex = 0;
+    let quizList = [];
+    
+    let spellingIndex = 0;
+    let spellingList = [];
+    let spellingUserWord = [];
+
+    // Synthesized Audio Context
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Text to Speech
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // stop current sound
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.8;  // slightly slower for children to listen clearly
+        utterance.pitch = 1.2; // kid-friendly high pitch
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert("Trình duyệt không hỗ trợ phát âm!");
+      }
+    }
+
+    // Play Synth Game Sounds
+    function playSound(type) {
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      
+      const now = audioCtx.currentTime;
+      
+      if (type === 'correct') {
+        // High double-beep
+        const osc1 = audioCtx.createOscillator();
+        const gain1 = audioCtx.createGain();
+        osc1.connect(gain1);
+        gain1.connect(audioCtx.destination);
+        osc1.type = 'triangle';
+        osc1.frequency.setValueAtTime(523.25, now); // C5
+        osc1.frequency.setValueAtTime(659.25, now + 0.08); // E5
+        gain1.gain.setValueAtTime(0, now);
+        gain1.gain.linearRampToValueAtTime(0.2, now + 0.04);
+        gain1.gain.linearRampToValueAtTime(0, now + 0.2);
+        osc1.start(now);
+        osc1.stop(now + 0.2);
+      } 
+      else if (type === 'wrong') {
+        // Sad low slide
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, now); // A3
+        osc.frequency.linearRampToValueAtTime(130, now + 0.25);
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(0.15, now + 0.05);
+        gain.gain.linearRampToValueAtTime(0, now + 0.3);
+        osc.start(now);
+        osc.stop(now + 0.3);
+      } 
+      else if (type === 'win') {
+        // Happy Fanfare
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        notes.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+          gain.gain.setValueAtTime(0, now + idx * 0.1);
+          gain.gain.linearRampToValueAtTime(0.15, now + idx * 0.1 + 0.02);
+          gain.gain.linearRampToValueAtTime(0, now + idx * 0.1 + 0.1);
+          osc.start(now + idx * 0.1);
+          osc.stop(now + idx * 0.1 + 0.1);
+        });
+      }
+      else if (type === 'click') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, now);
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(0.08, now + 0.01);
+        gain.gain.linearRampToValueAtTime(0, now + 0.05);
+        osc.start(now);
+        osc.stop(now + 0.05);
+      }
+    }
+
+    // INITIALIZATION
+    function init() {
+      renderLearnCards();
+    }
+
+
+    function switchScreen(screenName) {
+      playSound('click');
+      currentScreen = screenName;
+      
+      // Update nav buttons active state
+      document.getElementById('nav-learn').classList.toggle('active', screenName === 'learn');
+      document.getElementById('nav-quiz').classList.toggle('active', screenName === 'quiz');
+      document.getElementById('nav-spelling').classList.toggle('active', screenName === 'spelling');
+      document.getElementById('nav-tracing').classList.toggle('active', screenName === 'tracing');
+
+      // Hide all screens, show current
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      
+      if (screenName === 'learn') {
+        document.getElementById('screen-learn').classList.add('active');
+        renderLearnCards();
+      } else if (screenName === 'quiz') {
+        document.getElementById('screen-quiz').classList.add('active');
+      } else if (screenName === 'spelling') {
+        document.getElementById('screen-spelling').classList.add('active');
+      } else if (screenName === 'tracing') {
+        document.getElementById('screen-tracing').classList.add('active');
+        startTracingGame();
+      } else if (screenName === 'success') {
+        document.getElementById('screen-success').classList.add('active');
+      }
+    }
+
+
+    // LEARN MODE LOGIC
+    function renderLearnCards() {
+      const grid = document.getElementById('learn-grid');
+      grid.innerHTML = '';
+      
+      currentWords.forEach(wordObj => {
+        const card = document.createElement('div');
+        card.className = 'word-card';
+        card.id = `card-${wordObj.id}`;
+        card.onclick = () => {
+          // Play card audio
+          speak(wordObj.word);
+          
+          // Flash animation
+          card.classList.add('speaking');
+          setTimeout(() => card.classList.remove('speaking'), 800);
+        };
+
+        // If main group, make cards bigger & more fun
+        card.innerHTML = `
+          <div class="image-container">
+            <img src="${wordObj.img}" alt="${wordObj.word}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><text y=\'.9em\' font-size=\'80\'>🔤</text></svg>'">
+          </div>
+          <div class="card-info">
+            <div class="english-word">${wordObj.word}</div>
+            <div class="vietnamese-word">${wordObj.translation}</div>
+          </div>
+          <button class="speaker-btn">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </svg>
+          </button>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // GAME: LISTEN & CHOOSE LOGIC
+    function startQuizGame() {
+      switchScreen('quiz');
+      quizIndex = 0;
+      // Shuffle words to make a random quiz path
+      quizList = [...currentWords].sort(() => Math.random() - 0.5);
+      showQuizQuestion();
+    }
+
+    function showQuizQuestion() {
+      // Update progress bar
+      const progressPercent = (quizIndex / quizList.length) * 100;
+      document.getElementById('quiz-progress').style.width = `${progressPercent}%`;
+
+      if (quizIndex >= quizList.length) {
+        showSuccessScreen('Trò chơi Chọn Hình', 'Bé thật xuất sắc! Bé đã chọn đúng tất cả các hình!');
+        return;
+      }
+
+      const currentItem = quizList[quizIndex];
+      
+      // Auto speak the word when it loads (with a tiny delay so the screen switches first)
+      setTimeout(() => {
+        speak(currentItem.word);
+      }, 500);
+
+      // Generate 2 or 4 options (depending on word set size)
+      // We want to make sure the correct answer is in there, plus random distractors
+      let optionsPool = [...currentWords];
+      let choices = [currentItem];
+      
+      // Filter out correct answer to get distractors
+      optionsPool = optionsPool.filter(w => w.id !== currentItem.id);
+      optionsPool.sort(() => Math.random() - 0.5);
+      
+      // Add up to 3 distractors
+      const numDistractors = Math.min(3, optionsPool.length);
+      for (let i = 0; i < numDistractors; i++) {
+        choices.push(optionsPool[i]);
+      }
+      
+      // Shuffle choices
+      choices.sort(() => Math.random() - 0.5);
+
+      // Render choice cards
+      const choicesGrid = document.getElementById('quiz-choices');
+      choicesGrid.innerHTML = '';
+      
+      choices.forEach(option => {
+        const choiceCard = document.createElement('div');
+        choiceCard.className = 'choice-card';
+        choiceCard.innerHTML = `
+          <img src="${option.img}" alt="choice" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><text y=\'.9em\' font-size=\'60\'>✨</text></svg>'">
+        `;
+        choiceCard.onclick = () => handleQuizAnswer(option.id === currentItem.id, choiceCard);
+        choicesGrid.appendChild(choiceCard);
+      });
+    }
+
+    // Play current quiz sound
+    function playCurrentQuizSound() {
+      if (quizList[quizIndex]) {
+        speak(quizList[quizIndex].word);
+      }
+    }
+
+    function handleQuizAnswer(isCorrect, element) {
+      // Prevent double clicking
+      if (element.classList.contains('correct') || element.classList.contains('wrong')) return;
+
+      if (isCorrect) {
+        playSound('correct');
+        element.classList.add('correct');
+        // Let it display green for a short time, then next question
+        setTimeout(() => {
+          quizIndex++;
+          showQuizQuestion();
+        }, 1200);
+      } else {
+        playSound('wrong');
+        element.classList.add('wrong');
+        // Remove wrong style after animation so user can try again
+        setTimeout(() => {
+          element.classList.remove('wrong');
+        }, 800);
+      }
+    }
+
+
+    // GAME: SPELLING LOGIC
+    function startSpellingGame() {
+      switchScreen('spelling');
+      spellingIndex = 0;
+      spellingList = [...currentWords].sort(() => Math.random() - 0.5);
+      showSpellingQuestion();
+    }
+
+    function showSpellingQuestion() {
+      const progressPercent = (spellingIndex / spellingList.length) * 100;
+      document.getElementById('spelling-progress').style.width = `${progressPercent}%`;
+
+      if (spellingIndex >= spellingList.length) {
+        showSuccessScreen('Trò chơi Ghép Chữ', 'Bé rất giỏi! Bé đã ghép đúng chính tả tất cả các từ!');
+        return;
+      }
+
+      const currentItem = spellingList[spellingIndex];
+      spellingUserWord = [];
+
+      // Set Image Hint
+      const imgElem = document.getElementById('spelling-word-img');
+      imgElem.src = currentItem.img;
+
+      // Speak word at start
+      setTimeout(() => {
+        speak(currentItem.word);
+      }, 500);
+
+      // Create Slots
+      const slotsContainer = document.getElementById('spelling-slots');
+      slotsContainer.innerHTML = '';
+      for (let i = 0; i < currentItem.word.length; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'letter-slot';
+        slot.id = `slot-${i}`;
+        slotsContainer.appendChild(slot);
+      }
+
+      // Create Scrambled Letter Tiles
+      let letters = currentItem.word.toUpperCase().split('');
+      
+      // Shuffle letters
+      letters.sort(() => Math.random() - 0.5);
+
+      const poolContainer = document.getElementById('spelling-pool');
+      poolContainer.innerHTML = '';
+      
+      letters.forEach((letter, index) => {
+        const tile = document.createElement('div');
+        tile.className = 'letter-tile';
+        tile.innerText = letter;
+        tile.id = `tile-${index}`;
+        tile.onclick = () => handleLetterClick(letter, `tile-${index}`);
+        poolContainer.appendChild(tile);
+      });
+    }
+
+    function handleLetterClick(letter, tileId) {
+      playSound('click');
+      const tile = document.getElementById(tileId);
+      tile.classList.add('used');
+
+      // Put letter in the first empty slot
+      const targetWordObj = spellingList[spellingIndex];
+      const nextIndex = spellingUserWord.length;
+      
+      if (nextIndex < targetWordObj.word.length) {
+        spellingUserWord.push({ letter, tileId });
+        
+        const targetSlot = document.getElementById(`slot-${nextIndex}`);
+        targetSlot.innerText = letter;
+        targetSlot.classList.add('filled');
+
+        // Check if word is complete
+        if (spellingUserWord.length === targetWordObj.word.length) {
+          const spelledWord = spellingUserWord.map(item => item.letter).join('').toLowerCase();
+          
+          if (spelledWord === targetWordObj.word.toLowerCase()) {
+            // Correct Spelling!
+            playSound('correct');
+            // Flash all slots with success style
+            document.querySelectorAll('.letter-slot').forEach(slot => {
+              slot.style.borderBottomColor = 'var(--success)';
+            });
+            
+            // Speak word clearly
+            speak(targetWordObj.word);
+
+            setTimeout(() => {
+              spellingIndex++;
+              showSpellingQuestion();
+            }, 1500);
+          } else {
+            // Wrong spelling, shake slots and clear automatically after brief delay
+            playSound('wrong');
+            
+            document.querySelectorAll('.letter-slot').forEach(slot => {
+              slot.classList.add('wrong');
+              slot.style.borderBottomColor = 'var(--danger)';
+              slot.style.color = 'var(--danger)';
+            });
+
+            setTimeout(() => {
+              resetCurrentSpellingWord();
+            }, 1000);
+          }
+        }
+      }
+    }
+
+    function resetCurrentSpellingWord() {
+      playSound('click');
+      spellingUserWord = [];
+      
+      // Clear slots
+      document.querySelectorAll('.letter-slot').forEach(slot => {
+        slot.innerText = '';
+        slot.className = 'letter-slot';
+        slot.style.borderBottomColor = '';
+        slot.style.color = '';
+      });
+
+      // Enable tiles
+      document.querySelectorAll('.letter-tile').forEach(tile => {
+        tile.classList.remove('used');
+      });
+    }
+
+    function speakCurrentSpellingWord() {
+      if (spellingList[spellingIndex]) {
+        speak(spellingList[spellingIndex].word);
+      }
+    }
+
+    // SUCCESS & CONFETTI LOGIC
+    function showSuccessScreen(title, message) {
+      playSound('win');
+      switchScreen('success');
+      
+      document.getElementById('success-title').innerText = title + ' Hoàn Thành!';
+      document.getElementById('success-message').innerText = message;
+      
+      // Start confetti
+      startConfetti();
+    }
+
+    function restartGame() {
+      playSound('click');
+      stopConfetti();
+      switchScreen('learn');
+    }
+
+    // Confetti particles engine
+    let confettiActive = false;
+    let confettiCanvas = document.getElementById('confetti');
+    let confettiCtx = confettiCanvas.getContext('2d');
+    let particles = [];
+    const colors = ['#4e84e7', '#ff9f43', '#2ed573', '#ff4757', '#eccc68', '#ff7f50'];
+
+    function startConfetti() {
+      confettiActive = true;
+      confettiCanvas.style.display = 'block';
+      resizeConfettiCanvas();
+      particles = [];
+      for (let i = 0; i < 150; i++) {
+        particles.push({
+          x: Math.random() * confettiCanvas.width,
+          y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * confettiCanvas.height,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          tilt: Math.random() * 10 - 5,
+          tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+          tiltAngle: 0
+        });
+      }
+      window.addEventListener('resize', resizeConfettiCanvas);
+      requestAnimationFrame(drawConfetti);
+    }
+
+    function stopConfetti() {
+      confettiActive = false;
+      confettiCanvas.style.display = 'none';
+      window.removeEventListener('resize', resizeConfettiCanvas);
+    }
+
+    function resizeConfettiCanvas() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+
+    function drawConfetti() {
+      if (!confettiActive) return;
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      
+      particles.forEach((p, idx) => {
+        p.tiltAngle += p.tiltAngleIncremental;
+        p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+        p.tilt = Math.sin(p.tiltAngle - idx/3) * 15;
+
+        // If particle reaches bottom, reset to top
+        if (p.y > confettiCanvas.height) {
+          particles[idx] = {
+            x: Math.random() * confettiCanvas.width,
+            y: -20,
+            r: p.r,
+            d: p.d,
+            color: p.color,
+            tilt: p.tilt,
+            tiltAngleIncremental: p.tiltAngleIncremental,
+            tiltAngle: p.tiltAngle
+          };
+        }
+
+        confettiCtx.beginPath();
+        confettiCtx.lineWidth = p.r;
+        confettiCtx.strokeStyle = p.color;
+        confettiCtx.moveTo(p.x + p.tilt + p.r/2, p.y);
+        confettiCtx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r/2);
+        confettiCtx.stroke();
+      });
+
+      requestAnimationFrame(drawConfetti);
+    }
+
+    // GAME: TRACING LOGIC
+    let tracingCanvas, tracingCtx;
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+    let currentTraceLetter = 'T';
+
+    const tracingLetters = ['T', 't', 'U', 'u', 'V', 'v'];
+    let tracingIndex = 0;
+
+    function initTracing() {
+      tracingCanvas = document.getElementById('tracing-canvas');
+      tracingCtx = tracingCanvas.getContext('2d');
+
+      // Mouse Events
+      tracingCanvas.addEventListener('mousedown', startDrawing);
+      tracingCanvas.addEventListener('mousemove', drawLine);
+      window.addEventListener('mouseup', stopDrawing);
+
+      // Touch Events (passive: false is key to call e.preventDefault() on iOS)
+      tracingCanvas.addEventListener('touchstart', startDrawingTouch, { passive: false });
+      tracingCanvas.addEventListener('touchmove', drawLineTouch, { passive: false });
+      window.addEventListener('touchend', stopDrawing);
+    }
+
+    function startTracingGame() {
+      tracingIndex = 0;
+      currentTraceLetter = tracingLetters[tracingIndex];
+      
+      // Update active style on selector buttons
+      updateTracingButtonsUI();
+      
+      setTimeout(() => {
+        drawTemplate(currentTraceLetter);
+        speakLetter(currentTraceLetter);
+      }, 300);
+    }
+
+    function selectTracingLetter(letter, btnElement) {
+      playSound('click');
+      currentTraceLetter = letter;
+      tracingIndex = tracingLetters.indexOf(letter);
+      
+      // Update active class on buttons
+      document.querySelectorAll('#screen-tracing .lesson-tab').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      if (btnElement) {
+        btnElement.classList.add('active');
+      } else {
+        updateTracingButtonsUI();
+      }
+      
+      drawTemplate(currentTraceLetter);
+      speakLetter(currentTraceLetter);
+    }
+
+    function updateTracingButtonsUI() {
+      const buttons = document.querySelectorAll('#screen-tracing .lesson-tab');
+      buttons.forEach(btn => {
+        if (btn.innerText === currentTraceLetter) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    function drawTemplate(letter) {
+      tracingCtx.clearRect(0, 0, tracingCanvas.width, tracingCanvas.height);
+      
+      // School lines
+      tracingCtx.strokeStyle = '#cbd5e1';
+      tracingCtx.lineWidth = 1.5;
+      
+      // Top line
+      tracingCtx.beginPath();
+      tracingCtx.moveTo(0, 80);
+      tracingCtx.lineTo(tracingCanvas.width, 80);
+      tracingCtx.stroke();
+      
+      // Middle line (dashed)
+      tracingCtx.strokeStyle = '#94a3b8';
+      tracingCtx.setLineDash([8, 8]);
+      tracingCtx.beginPath();
+      tracingCtx.moveTo(0, tracingCanvas.height / 2);
+      tracingCtx.lineTo(tracingCanvas.width, tracingCanvas.height / 2);
+      tracingCtx.stroke();
+      tracingCtx.setLineDash([]);
+      
+      // Bottom line
+      tracingCtx.strokeStyle = '#cbd5e1';
+      tracingCtx.beginPath();
+      tracingCtx.moveTo(0, tracingCanvas.height - 80);
+      tracingCtx.lineTo(tracingCanvas.width, tracingCanvas.height - 80);
+      tracingCtx.stroke();
+
+      // Configure font sizes for uppercase vs lowercase
+      let fontSize = 260;
+      let verticalOffset = -10;
+      
+      if (['t', 'u', 'v'].includes(letter)) {
+        if (letter === 't') {
+          fontSize = 240;
+          verticalOffset = -15;
+        } else {
+          fontSize = 180;
+          verticalOffset = 40;
+        }
+      }
+
+      // Fill style
+      tracingCtx.fillStyle = '#f1f5f9';
+      tracingCtx.font = `bold ${fontSize}px Fredoka`;
+      tracingCtx.textAlign = 'center';
+      tracingCtx.textBaseline = 'middle';
+      tracingCtx.fillText(letter, tracingCanvas.width / 2, tracingCanvas.height / 2 + verticalOffset);
+      
+      // Stroke dashed outline
+      tracingCtx.strokeStyle = '#cbd5e1';
+      tracingCtx.lineWidth = 3;
+      tracingCtx.setLineDash([6, 6]);
+      tracingCtx.strokeText(letter, tracingCanvas.width / 2, tracingCanvas.height / 2 + verticalOffset);
+      tracingCtx.setLineDash([]);
+    }
+
+    function getEventCoords(e) {
+      const rect = tracingCanvas.getBoundingClientRect();
+      let clientX, clientY;
+      if (e.touches && e.touches.length > 0) {
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+      } else {
+        clientX = e.clientX;
+        clientY = e.clientY;
+      }
+      const x = (clientX - rect.left) * (tracingCanvas.width / rect.width);
+      const y = (clientY - rect.top) * (tracingCanvas.height / rect.height);
+      return { x, y };
+    }
+
+    function startDrawing(e) {
+      isDrawing = true;
+      const coords = getEventCoords(e);
+      lastX = coords.x;
+      lastY = coords.y;
+      drawPoint(coords.x, coords.y);
+    }
+
+    function startDrawingTouch(e) {
+      e.preventDefault();
+      startDrawing(e);
+    }
+
+    function drawLine(e) {
+      if (!isDrawing) return;
+      const coords = getEventCoords(e);
+      
+      tracingCtx.beginPath();
+      tracingCtx.strokeStyle = '#9c27b0'; // pretty purple brush
+      tracingCtx.lineWidth = 20;
+      tracingCtx.lineCap = 'round';
+      tracingCtx.lineJoin = 'round';
+      tracingCtx.moveTo(lastX, lastY);
+      tracingCtx.lineTo(coords.x, coords.y);
+      tracingCtx.stroke();
+      
+      lastX = coords.x;
+      lastY = coords.y;
+    }
+
+    function drawLineTouch(e) {
+      e.preventDefault();
+      drawLine(e);
+    }
+
+    function drawPoint(x, y) {
+      tracingCtx.beginPath();
+      tracingCtx.fillStyle = '#9c27b0';
+      tracingCtx.arc(x, y, 10, 0, Math.PI * 2);
+      tracingCtx.fill();
+    }
+
+    // Stop Drawing
+    function stopDrawing() {
+      isDrawing = false;
+    }
+
+    function clearTracingCanvas() {
+      playSound('click');
+      drawTemplate(currentTraceLetter);
+    }
+
+    function speakLetter(letter) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        let promptText = letter;
+        // Help children understand capitals vs lowercase
+        if (letter === letter.toUpperCase()) {
+          promptText = "Capital letter " + letter;
+        } else {
+          promptText = "Lowercase letter " + letter;
+        }
+        const utterance = new SpeechSynthesisUtterance(promptText);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.75;
+        utterance.pitch = 1.25;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    function speakTracingLetter() {
+      speakLetter(currentTraceLetter);
+    }
+
+    function completeTracing() {
+      playSound('correct');
+      
+      // Advance to next letter
+      tracingIndex++;
+      if (tracingIndex < tracingLetters.length) {
+        currentTraceLetter = tracingLetters[tracingIndex];
+        updateTracingButtonsUI();
+        setTimeout(() => {
+          drawTemplate(currentTraceLetter);
+          speakLetter(currentTraceLetter);
+        }, 1000);
+      } else {
+        // Traced all letters!
+        setTimeout(() => {
+          showSuccessScreen('Thử Thách Tập Viết', 'Bé đã hoàn thành xuất sắc thử thách tập viết các chữ cái T, U, V!');
+        }, 1000);
+      }
+    }
+
+    // Run game initialization
+    window.onload = () => {
+      init();
+      initTracing();
+    };
+
+  </script>
+</body>
+</html>
