@@ -592,12 +592,30 @@
       perspective: 1000px;
     }
 
+    .memory-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .memory-stats {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
     .memory-card {
       aspect-ratio: 1;
       position: relative;
       transform-style: preserve-3d;
       transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       cursor: pointer;
+      border: none;
+      padding: 0;
+      background: transparent;
+      font: inherit;
     }
 
     .memory-card.flipped {
@@ -609,6 +627,27 @@
       pointer-events: none;
       opacity: 0.8;
       animation: matched-pulse 0.5s ease-out;
+    }
+
+    .memory-card.word-visible .card-face.front {
+      display: none;
+    }
+
+    .memory-card.word-visible .card-face.back {
+      transform: none;
+      border-color: #ffd39b;
+      background: #fffaf0;
+    }
+
+    .memory-card.word-visible.selected-word .card-face.back {
+      border-color: var(--secondary);
+      background: #fff1df;
+      box-shadow: 0 0 0 4px rgba(255, 159, 67, 0.18);
+    }
+
+    .memory-card.word-visible.matched {
+      transform: none;
+      animation: word-matched-pulse 0.5s ease-out;
     }
 
     .card-face {
@@ -658,6 +697,221 @@
       0% { transform: rotateY(180deg) scale(1); }
       50% { transform: rotateY(180deg) scale(1.08); box-shadow: 0 0 20px var(--success); }
       100% { transform: rotateY(180deg) scale(1); }
+    }
+
+    @keyframes word-matched-pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); box-shadow: 0 0 20px var(--success); }
+      100% { transform: scale(1); }
+    }
+
+    /* NUMBERS 1–10 */
+    .numbers-home {
+      display: grid;
+      gap: 22px;
+    }
+
+    .numbers-heading {
+      text-align: center;
+    }
+
+    .numbers-heading h2 {
+      color: var(--primary);
+      font-size: 2rem;
+      margin-bottom: 6px;
+    }
+
+    .numbers-heading p {
+      color: #747d8c;
+      font-size: 1.05rem;
+    }
+
+    .number-learning-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .number-learning-card {
+      background: white;
+      border: 3px solid var(--primary-light);
+      border-radius: 20px;
+      padding: 14px 8px;
+      min-height: 128px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 5px 14px rgba(0,0,0,0.05);
+    }
+
+    .number-learning-card:hover,
+    .number-learning-card:active {
+      border-color: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .number-digit {
+      color: var(--primary);
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .number-name {
+      color: var(--secondary);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .number-dots {
+      font-size: 0.85rem;
+      line-height: 1.15;
+      max-width: 110px;
+      margin-top: 7px;
+      overflow-wrap: anywhere;
+    }
+
+    .number-games-menu {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .number-game-launcher {
+      border: none;
+      border-radius: 22px;
+      padding: 18px 12px;
+      min-height: 130px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 7px 18px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .number-game-launcher:hover,
+    .number-game-launcher:active {
+      transform: translateY(-4px) scale(1.01);
+    }
+
+    .number-game-launcher:nth-child(1) { background: linear-gradient(135deg, #4e84e7, #6c9cf2); }
+    .number-game-launcher:nth-child(2) { background: linear-gradient(135deg, #ff9f43, #ffbd69); }
+    .number-game-launcher:nth-child(3) { background: linear-gradient(135deg, #2ed573, #57e890); }
+
+    .game-icon {
+      display: block;
+      font-size: 2.4rem;
+      margin-bottom: 8px;
+    }
+
+    .number-game-area {
+      text-align: center;
+    }
+
+    .number-game-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .number-question {
+      min-height: 150px;
+      background: #fffaf0;
+      border: 3px dashed #ffd39b;
+      border-radius: 22px;
+      padding: 22px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .counting-objects {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      line-height: 1.35;
+      letter-spacing: 4px;
+      overflow-wrap: anywhere;
+    }
+
+    .target-number {
+      font-size: 4rem;
+      color: var(--primary);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .number-answer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .number-answer {
+      background: white;
+      border: 4px solid var(--primary-light);
+      border-radius: 18px;
+      min-height: 82px;
+      padding: 10px;
+      color: var(--primary);
+      font-size: 2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .number-answer.group-answer {
+      font-size: 1.65rem;
+      line-height: 1.25;
+      min-height: 120px;
+      overflow-wrap: anywhere;
+    }
+
+    .number-answer.correct {
+      border-color: var(--success);
+      background: #e8fbf0;
+      color: #168a49;
+    }
+
+    .number-answer.wrong {
+      border-color: var(--danger);
+      background: #ffebeb;
+      animation: shake 0.5s ease;
+    }
+
+    .sequence-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .sequence-number {
+      width: 48px;
+      height: 52px;
+      background: white;
+      border: 3px solid var(--primary-light);
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.45rem;
+      font-weight: 700;
+    }
+
+    .sequence-number.missing {
+      border-style: dashed;
+      border-color: var(--secondary);
+      background: #fff4e6;
+      color: var(--secondary);
     }
 
     /* RESPONSIVE */
@@ -852,6 +1106,14 @@
         gap: 6px;
       }
 
+      .memory-toolbar {
+        margin-bottom: 12px;
+      }
+
+      .memory-stats {
+        font-size: 0.92rem;
+      }
+
       .card-face.front {
         font-size: 1.5rem;
       }
@@ -870,6 +1132,75 @@
 
       .success-box h2 {
         font-size: 2rem;
+      }
+
+      .numbers-heading h2 {
+        font-size: 1.55rem;
+      }
+
+      .number-learning-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+      }
+
+      .number-learning-card {
+        min-height: 112px;
+        padding: 11px 6px;
+      }
+
+      .number-digit {
+        font-size: 2.15rem;
+      }
+
+      .number-games-menu {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .number-game-launcher {
+        min-height: 92px;
+        padding: 12px;
+      }
+
+      .game-icon {
+        display: inline-block;
+        font-size: 1.8rem;
+        margin: 0 8px 0 0;
+      }
+
+      .number-game-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .number-question {
+        min-height: 135px;
+        padding: 16px 10px;
+      }
+
+      .number-answer-grid {
+        gap: 8px;
+      }
+
+      .number-answer {
+        min-height: 70px;
+        font-size: 1.7rem;
+        border-width: 3px;
+      }
+
+      .number-answer.group-answer {
+        min-height: 100px;
+        font-size: 1.2rem;
+      }
+
+      .sequence-row {
+        gap: 5px;
+      }
+
+      .sequence-number {
+        width: 31px;
+        height: 40px;
+        font-size: 1.1rem;
       }
     }
 
@@ -916,6 +1247,9 @@
         </button>
         <button class="nav-btn" id="nav-memory" onclick="startMemoryGame()">
           🎴 Lật Thẻ
+        </button>
+        <button class="nav-btn" id="nav-numbers" onclick="openNumbersHome()">
+          🔢 Học Số
         </button>
       </nav>
 
@@ -1006,6 +1340,59 @@
       </div>
     </section>
 
+    <!-- 6. MEMORY MATCHING GAME -->
+    <section id="screen-memory" class="screen">
+      <div class="game-box">
+        <div class="memory-toolbar">
+          <div class="memory-stats" id="memory-stats">Đã ghép: 0 / 8 · Lượt: 0</div>
+          <button class="btn btn-secondary" onclick="startMemoryGame()">↻ Chơi lại</button>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="memory-progress"></div>
+        </div>
+        <h3 class="game-title">Lật hai thẻ và tìm hai hình giống nhau!</h3>
+        <div class="memory-grid" id="memory-grid" aria-label="Trò chơi lật thẻ"></div>
+      </div>
+    </section>
+
+    <!-- 7. NUMBERS 1–10 -->
+    <section id="screen-numbers" class="screen">
+      <div id="numbers-home" class="numbers-home">
+        <div class="numbers-heading">
+          <h2>🔢 Bé học số từ 1 đến 10</h2>
+          <p>Chạm vào mỗi thẻ để nghe cách đọc số bằng tiếng Anh.</p>
+        </div>
+        <div class="number-learning-grid" id="number-learning-grid"></div>
+        <div class="numbers-heading">
+          <h2>Chọn một trò chơi</h2>
+        </div>
+        <div class="number-games-menu">
+          <button class="number-game-launcher" onclick="startNumberGame('count')">
+            <span class="game-icon">🍎</span>Game 1: Đếm và chọn số
+          </button>
+          <button class="number-game-launcher" onclick="startNumberGame('group')">
+            <span class="game-icon">🎈</span>Game 2: Chọn nhóm đúng
+          </button>
+          <button class="number-game-launcher" onclick="startNumberGame('sequence')">
+            <span class="game-icon">🚂</span>Game 3: Số còn thiếu
+          </button>
+        </div>
+      </div>
+
+      <div id="number-game-area" class="game-box number-game-area" hidden>
+        <div class="number-game-toolbar">
+          <button class="btn btn-secondary" onclick="openNumbersHome()">← Chọn trò khác</button>
+          <strong id="number-game-score">Câu 1 / 5</strong>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="number-game-progress"></div>
+        </div>
+        <h3 class="game-title" id="number-game-title"></h3>
+        <div class="number-question" id="number-question"></div>
+        <div class="number-answer-grid" id="number-answers"></div>
+      </div>
+    </section>
+
     <!-- 4. REWARD/SUCCESS SCREEN -->
     <section id="screen-success" class="screen">
       <div class="game-box success-box">
@@ -1034,6 +1421,9 @@
       { id: 'violet', word: 'violet', translation: 'Màu tím / Hoa violet 🌸', img: './images/violet.png' },
       { id: 'visit', word: 'visit', translation: 'Đi thăm / Gặp gỡ 🤝', img: './images/visit.png' }
     ];
+
+    const numberWords = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+    const countingEmojis = ['🍎', '⭐', '🐟', '🦋', '🍓', '🚗', '🐥', '🌼'];
 
     let currentWords = [...allWords];
     let currentScreen = 'learn';
@@ -1148,6 +1538,8 @@
       document.getElementById('nav-quiz').classList.toggle('active', screenName === 'quiz');
       document.getElementById('nav-spelling').classList.toggle('active', screenName === 'spelling');
       document.getElementById('nav-tracing').classList.toggle('active', screenName === 'tracing');
+      document.getElementById('nav-memory').classList.toggle('active', screenName === 'memory');
+      document.getElementById('nav-numbers').classList.toggle('active', screenName === 'numbers');
 
       // Hide all screens, show current
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -1162,6 +1554,10 @@
       } else if (screenName === 'tracing') {
         document.getElementById('screen-tracing').classList.add('active');
         startTracingGame();
+      } else if (screenName === 'memory') {
+        document.getElementById('screen-memory').classList.add('active');
+      } else if (screenName === 'numbers') {
+        document.getElementById('screen-numbers').classList.add('active');
       } else if (screenName === 'success') {
         document.getElementById('screen-success').classList.add('active');
       }
@@ -1426,6 +1822,250 @@
     function speakCurrentSpellingWord() {
       if (spellingList[spellingIndex]) {
         speak(spellingList[spellingIndex].word);
+      }
+    }
+
+    // GAME: MATCH EACH PICTURE WITH ITS ENGLISH WORD
+    let firstMemoryCard = null;
+    let secondMemoryCard = null;
+    let memoryBoardLocked = false;
+    let memoryMatchedPairs = 0;
+    let memoryMoves = 0;
+
+    function startMemoryGame() {
+      stopConfetti();
+      switchScreen('memory');
+      firstMemoryCard = null;
+      secondMemoryCard = null;
+      memoryBoardLocked = false;
+      memoryMatchedPairs = 0;
+      memoryMoves = 0;
+
+      const deck = [];
+      currentWords.forEach(wordObj => {
+        // Each vocabulary word appears as two identical picture cards.
+        deck.push({ pairId: wordObj.id, wordObj });
+        deck.push({ pairId: wordObj.id, wordObj });
+      });
+      deck.sort(() => Math.random() - 0.5);
+
+      const grid = document.getElementById('memory-grid');
+      grid.innerHTML = '';
+      deck.forEach((item, index) => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'memory-card';
+        card.dataset.pairId = item.pairId;
+        card.setAttribute('aria-label', `Thẻ hình đang úp số ${index + 1}`);
+
+        card.innerHTML = `
+          <span class="card-face front">?</span>
+          <span class="card-face back"><img src="${item.wordObj.img}" alt="${item.wordObj.word}" onerror="this.style.display='none'; this.parentElement.innerHTML='🖼️';"></span>
+        `;
+        card.onclick = () => flipMemoryCard(card, item.wordObj);
+        grid.appendChild(card);
+      });
+
+      updateMemoryStats();
+    }
+
+    function flipMemoryCard(card, wordObj) {
+      if (memoryBoardLocked || card === firstMemoryCard || card.classList.contains('matched')) return;
+
+      playSound('click');
+      card.classList.add('flipped');
+      card.setAttribute('aria-label', `Hình ${wordObj.word}`);
+
+      if (!firstMemoryCard) {
+        firstMemoryCard = card;
+        return;
+      }
+
+      secondMemoryCard = card;
+      memoryMoves++;
+      memoryBoardLocked = true;
+
+      const isMatch = firstMemoryCard.dataset.pairId === secondMemoryCard.dataset.pairId;
+
+      if (isMatch) {
+        playSound('correct');
+        firstMemoryCard.classList.add('matched');
+        secondMemoryCard.classList.add('matched');
+        memoryMatchedPairs++;
+        // Pronounce the word only after the two pictures match.
+        speak(wordObj.word);
+        resetMemoryTurn();
+        updateMemoryStats();
+
+        if (memoryMatchedPairs === currentWords.length) {
+          setTimeout(() => {
+            showSuccessScreen('Trò chơi Lật Thẻ', `Bé đã ghép đúng ${currentWords.length} cặp thẻ trong ${memoryMoves} lượt!`);
+          }, 900);
+        }
+      } else {
+        playSound('wrong');
+        setTimeout(() => {
+          firstMemoryCard.classList.remove('flipped');
+          secondMemoryCard.classList.remove('flipped');
+          firstMemoryCard.setAttribute('aria-label', 'Thẻ hình đang úp');
+          secondMemoryCard.setAttribute('aria-label', 'Thẻ hình đang úp');
+          resetMemoryTurn();
+          updateMemoryStats();
+        }, 850);
+      }
+    }
+
+    function resetMemoryTurn() {
+      firstMemoryCard = null;
+      secondMemoryCard = null;
+      memoryBoardLocked = false;
+    }
+
+    function updateMemoryStats() {
+      document.getElementById('memory-stats').innerText = `Đã ghép: ${memoryMatchedPairs} / ${currentWords.length} · Lượt: ${memoryMoves}`;
+      document.getElementById('memory-progress').style.width = `${(memoryMatchedPairs / currentWords.length) * 100}%`;
+    }
+
+    // NUMBERS 1–10: LEARNING CARDS AND THREE COUNTING GAMES
+    let numberGameType = 'count';
+    let numberGameRound = 0;
+    let currentNumberAnswer = 1;
+    let numberGameLocked = false;
+    const numberGameTotalRounds = 5;
+
+    function renderNumberLearningCards() {
+      const grid = document.getElementById('number-learning-grid');
+      grid.innerHTML = '';
+
+      for (let number = 1; number <= 10; number++) {
+        const card = document.createElement('button');
+        card.className = 'number-learning-card';
+        card.type = 'button';
+        card.setAttribute('aria-label', `Số ${number}, ${numberWords[number]}`);
+        card.innerHTML = `
+          <span class="number-digit">${number}</span>
+          <span class="number-name">${numberWords[number]}</span>
+          <span class="number-dots">${'⭐'.repeat(number)}</span>
+        `;
+        card.onclick = () => {
+          playSound('click');
+          speak(numberWords[number]);
+          card.classList.add('speaking');
+          setTimeout(() => card.classList.remove('speaking'), 700);
+        };
+        grid.appendChild(card);
+      }
+    }
+
+    function openNumbersHome() {
+      stopConfetti();
+      switchScreen('numbers');
+      document.getElementById('numbers-home').hidden = false;
+      document.getElementById('number-game-area').hidden = true;
+      renderNumberLearningCards();
+    }
+
+    function startNumberGame(type) {
+      playSound('click');
+      switchScreen('numbers');
+      numberGameType = type;
+      numberGameRound = 0;
+      document.getElementById('numbers-home').hidden = true;
+      document.getElementById('number-game-area').hidden = false;
+      showNumberQuestion();
+    }
+
+    function randomNumber(min = 1, max = 10) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function makeNumberChoices(answer) {
+      const choices = new Set([answer]);
+      while (choices.size < 3) choices.add(randomNumber());
+      return [...choices].sort(() => Math.random() - 0.5);
+    }
+
+    function showNumberQuestion() {
+      if (numberGameRound >= numberGameTotalRounds) {
+        const titles = {
+          count: 'Đếm và chọn số',
+          group: 'Chọn nhóm đúng',
+          sequence: 'Số còn thiếu'
+        };
+        showSuccessScreen(titles[numberGameType], 'Bé đã hoàn thành 5 câu hỏi về các số từ 1 đến 10!');
+        return;
+      }
+
+      numberGameLocked = false;
+      const question = document.getElementById('number-question');
+      const answers = document.getElementById('number-answers');
+      const title = document.getElementById('number-game-title');
+      document.getElementById('number-game-score').innerText = `Câu ${numberGameRound + 1} / ${numberGameTotalRounds}`;
+      document.getElementById('number-game-progress').style.width = `${(numberGameRound / numberGameTotalRounds) * 100}%`;
+      answers.innerHTML = '';
+
+      if (numberGameType === 'count') {
+        currentNumberAnswer = randomNumber();
+        const emoji = countingEmojis[randomNumber(0, countingEmojis.length - 1)];
+        title.innerText = 'Có bao nhiêu hình?';
+        question.innerHTML = `<div class="counting-objects" aria-label="${currentNumberAnswer} hình">${emoji.repeat(currentNumberAnswer)}</div>`;
+        renderNumberButtons(makeNumberChoices(currentNumberAnswer));
+        setTimeout(() => speak('How many?'), 300);
+      } else if (numberGameType === 'group') {
+        currentNumberAnswer = randomNumber();
+        const emoji = countingEmojis[randomNumber(0, countingEmojis.length - 1)];
+        title.innerText = `Hãy chọn nhóm có ${currentNumberAnswer} hình`;
+        question.innerHTML = `<div class="target-number">${currentNumberAnswer}</div><div class="number-name">${numberWords[currentNumberAnswer]}</div>`;
+        makeNumberChoices(currentNumberAnswer).forEach(count => {
+          const button = document.createElement('button');
+          button.className = 'number-answer group-answer';
+          button.type = 'button';
+          button.setAttribute('aria-label', `Nhóm có ${count} hình`);
+          button.innerText = emoji.repeat(count);
+          button.onclick = () => checkNumberAnswer(count, button);
+          answers.appendChild(button);
+        });
+        setTimeout(() => speak(numberWords[currentNumberAnswer]), 300);
+      } else {
+        currentNumberAnswer = randomNumber(2, 9);
+        title.innerText = 'Số nào còn thiếu trong đoàn tàu?';
+        question.innerHTML = `<div class="sequence-row">${Array.from({ length: 10 }, (_, index) => {
+          const number = index + 1;
+          return `<span class="sequence-number ${number === currentNumberAnswer ? 'missing' : ''}">${number === currentNumberAnswer ? '?' : number}</span>`;
+        }).join('')}</div>`;
+        renderNumberButtons(makeNumberChoices(currentNumberAnswer));
+        setTimeout(() => speak('What number is missing?'), 300);
+      }
+    }
+
+    function renderNumberButtons(numbers) {
+      const answers = document.getElementById('number-answers');
+      numbers.forEach(number => {
+        const button = document.createElement('button');
+        button.className = 'number-answer';
+        button.type = 'button';
+        button.innerText = number;
+        button.onclick = () => checkNumberAnswer(number, button);
+        answers.appendChild(button);
+      });
+    }
+
+    function checkNumberAnswer(selectedNumber, button) {
+      if (numberGameLocked) return;
+
+      if (selectedNumber === currentNumberAnswer) {
+        numberGameLocked = true;
+        playSound('correct');
+        button.classList.add('correct');
+        speak(numberWords[currentNumberAnswer]);
+        setTimeout(() => {
+          numberGameRound++;
+          showNumberQuestion();
+        }, 1100);
+      } else {
+        playSound('wrong');
+        button.classList.add('wrong');
+        setTimeout(() => button.classList.remove('wrong'), 700);
       }
     }
 
